@@ -1,6 +1,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+soong_namespace {}
+
 package {
     default_applicable_licenses: ["external_minigbm_license"],
 }
@@ -30,6 +32,35 @@ license {
     license_text: [
         "LICENSE",
     ],
+}
+
+
+soong_config_module_type {
+    name: "qcvirtio_graphics_cc_defaults",
+    module_type: "cc_defaults",
+    config_namespace: "qcvirtio_graphics",
+    bool_variables: ["enabled"],
+    properties: ["enabled"],
+}
+
+soong_config_module_type {
+    name: "qcvirtio_graphics_rust_bindgen",
+    module_type: "rust_bindgen",
+    config_namespace: "qcvirtio_graphics",
+    bool_variables: ["enabled"],
+    properties: ["enabled"],
+}
+
+qcvirtio_graphics_cc_defaults {
+    name: "qcvirtio_graphics_enabled_defaults",
+    soong_config_variables: {
+        enabled: {
+            enabled: true,
+            conditions_default: {
+                enabled: false,
+            },
+        },
+    },
 }
 
 filegroup {
@@ -70,6 +101,7 @@ filegroup {
 
 cc_defaults {
     name: "minigbm_defaults",
+    defaults: ["qcvirtio_graphics_enabled_defaults"],
 
     cflags: [
         "-D_GNU_SOURCE=1",
@@ -202,8 +234,16 @@ cc_library {
 }
 
 // Rust bindings to minigbm, generated in a way compatible with gbm crate.
-rust_bindgen {
+qcvirtio_graphics_rust_bindgen {
     name: "libgbm_sys",
+    soong_config_variables: {
+        enabled: {
+            enabled: true,
+            conditions_default: {
+                enabled: false,
+            },
+        },
+    },
     crate_name: "gbm_sys",
     wrapper_src: "rust/gbm_wrapper.h",
     source_stem: "bindings",

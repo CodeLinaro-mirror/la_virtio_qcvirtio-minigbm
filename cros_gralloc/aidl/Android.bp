@@ -30,6 +30,7 @@ cc_binary {
     init_rc: ["allocator.rc"],
     vintf_fragments: ["allocator.xml"],
     vendor: true,
+    apex_available: ["com.qcom.prime.gralloc"],
     shared_libs: [
         "android.hardware.graphics.allocator-V2-ndk",
         "android.hardware.graphics.mapper@4.0",
