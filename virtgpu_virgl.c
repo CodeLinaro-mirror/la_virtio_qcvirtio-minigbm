@@ -1060,11 +1060,11 @@ static int virgl_bo_invalidate(struct bo *bo, struct mapping *mapping)
 	// Invalidate is only necessary if the host writes to the buffer. The encoder and
 	// decoder flags don't differentiate between input and output buffers, but we can
 	// use the format to determine whether this buffer could be encoder/decoder output.
+	// Do not set BO_USE_HW_VIDEO_DECODER in decoder case, as the ouput might get
+	// overwritten by virtio-gpu.
 	host_write_flags = BO_USE_RENDERING | BO_USE_CAMERA_WRITE | BO_USE_GPU_DATA_BUFFER;
 	if (bo->meta.format == DRM_FORMAT_R8)
 		host_write_flags |= BO_USE_HW_VIDEO_ENCODER;
-	else
-		host_write_flags |= BO_USE_HW_VIDEO_DECODER;
 
 	// TODO(b/267892346): Revert this workaround after migrating to virtgpu_cross_domain
 	// backend since it's a special arc only behavior.
