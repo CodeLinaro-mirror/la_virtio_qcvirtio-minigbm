@@ -27,7 +27,7 @@ cc_library_shared {
     name: "mapper.minigbm",
     defaults: ["minigbm_gralloc4_common_defaults"],
     vintf_fragments: ["mapper.minigbm.xml"],
-    apex_available: ["//external/virtio/mesa3d/apex:com.qcom.prime.gralloc"],
+    apex_available: ["//external/virtio/mesa3d/apex:com.qcom.prime.graphics"],
     shared_libs: [
         "android.hardware.graphics.allocator-V2-ndk",
         "libminigbm_gralloc",
