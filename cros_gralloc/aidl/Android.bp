@@ -30,7 +30,7 @@ cc_binary {
     init_rc: ["allocator.rc"],
     vintf_fragments: ["allocator.xml"],
     vendor: true,
-    apex_available: ["//external/virtio/mesa3d/apex:com.qcom.prime.gralloc"],
+    apex_available: ["//external/virtio/mesa3d/apex:com.qcom.prime.graphics"],
     shared_libs: [
         "android.hardware.graphics.allocator-V2-ndk",
         "android.hardware.graphics.mapper@4.0",
